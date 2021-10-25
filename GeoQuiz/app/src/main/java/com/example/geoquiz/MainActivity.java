@@ -2,6 +2,7 @@ package com.example.geoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
     Button mFalseButton;
     Button mNextButton;
     TextView mQuestionTextView;
+    Button mCheatButton;
+    private static final int REQUEST_CODE_CHEAT = 0;
+    private static final String EXTRA_ANSWER_IS_TRUE = "com.bignerdranch.android.geoquiz.answer_is_true";
+
     private static final String TAG = "QuizActivity";
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_oceans, true),
@@ -72,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mFalseButton = findViewById(R.id.false_button);
         mNextButton = findViewById(R.id.next_button);
         mQuestionTextView = findViewById(R.id.question_text_view);
+        mCheatButton = findViewById(R.id.cheat_button);
         updateQuestion();
 
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
 
+            }
+        });
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),CheatActivity.class);
+                intent.putExtra("cheater",mQuestionBank[mCurrentIndex].getAnswerTrue());
+                startActivityForResult(intent,REQUEST_CODE_CHEAT);
             }
         });
     }
