@@ -1,8 +1,10 @@
 package com.example.geoquiz;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,6 +33,11 @@ public class CheatActivity extends AppCompatActivity {
 
                 }
                 setAnswerShownResult(true);
+                int cx = mShowAnswer.getWidth() / 2;
+                int cy = mShowAnswer.getHeight() / 2;
+                float radius = mShowAnswer.getWidth();
+                Animator anim = ViewAnimationUtils.createCircularReveal(mShowAnswer, cx, cy, radius, 0);
+//                anim.addListener(new );
             }
         });
 
