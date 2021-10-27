@@ -40,11 +40,11 @@ public class CrimeFragment extends Fragment {
         mSolvedCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCrime.setSolved(isChecked);
+                mCrime.setSolved(mSolvedCheckBox.isChecked());
             }
         });
         mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override;
+            @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
