@@ -43,6 +43,7 @@ public class CrimeListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private CheckBox mSolvedCheckBox;
+        private Crime mCrime;
 
         public CrimeHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,9 +54,13 @@ public class CrimeListFragment extends Fragment {
 
         }
 
+        public void bindCrime(Crime crime){
+            mCrime = crime;
+        }
+
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), "clicked",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),mCrime.getTitle() + "clicked",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -76,6 +81,7 @@ public class CrimeListFragment extends Fragment {
             holder.mTitleTextView.setText(crime.getTitle());
             holder.mDateTextView.setText(crime.getDate().toString());
             holder.mSolvedCheckBox.setChecked(crime.isSolved());
+            holder.bindCrime(crime);
         }
 
         @NonNull
