@@ -1,12 +1,12 @@
-package com.example.criminalintent;
+package com.example.criminalintent.Deprecated;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+
+import com.example.criminalintent.CrimeFragment;
+import com.example.criminalintent.SingleFragmentActivity;
 
 import java.util.UUID;
 
