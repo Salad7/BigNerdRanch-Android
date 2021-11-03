@@ -43,10 +43,11 @@ public class CrimeFragment extends Fragment {
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
         mTitleField = v.findViewById(R.id.crime_title);
         mDateButton = v.findViewById(R.id.crime_date);
+        mSolvedCheckBox = v.findViewById(R.id.crime_solved);
+
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setEnabled(false);
 
-        mSolvedCheckBox = v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override

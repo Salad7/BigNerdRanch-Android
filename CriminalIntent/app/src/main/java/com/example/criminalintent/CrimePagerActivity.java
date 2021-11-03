@@ -10,16 +10,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.List;
 import java.util.UUID;
 
 public class CrimePagerActivity extends FragmentActivity {
 
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private List<Crime> mCrimes;
-    private static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
+    private static final String EXTRA_CRIME_ID = "crime_id";
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
@@ -34,20 +36,8 @@ public class CrimePagerActivity extends FragmentActivity {
         mViewPager = findViewById(R.id.activity_crime_pager_view_pager);
         mCrimes = CrimeLab.get(this).getCrimes();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                Crime crime = mCrimes.get(position);
-                return CrimeFragment.newInstance(crime.getId());
-            }
-
-            @Override
-            public int getCount() {
-                return mCrimes.size();
-            }
-        });
-
+        CustomFragmentStateAdapter customFragmentStateAdapter = new CustomFragmentStateAdapter(fragmentManager,getLifecycle());
+        mViewPager.setAdapter(customFragmentStateAdapter);
         for (int i = 0; i < mCrimes.size(); i++){
             if(mCrimes.get(i).getId().equals(crimeId)){
                 mViewPager.setCurrentItem(i);
@@ -55,5 +45,31 @@ public class CrimePagerActivity extends FragmentActivity {
             }
         }
 
+    }
+
+
+    class CustomFragmentStateAdapter extends FragmentStateAdapter {
+        Fragment frag;
+
+        public CustomFragmentStateAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
+        }
+
+        public CustomFragmentStateAdapter(@NonNull Fragment fragment) {
+            super(fragment);
+            frag = fragment;
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            Crime crime = mCrimes.get(position);
+            return CrimeFragment.newInstance(crime.getId());
+        }
+
+        @Override
+        public int getItemCount() {
+            return mCrimes.size();
+        }
     }
 }
