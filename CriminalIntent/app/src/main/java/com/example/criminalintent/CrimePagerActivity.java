@@ -3,6 +3,7 @@ package com.example.criminalintent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,12 +58,12 @@ public class CrimePagerActivity extends FragmentActivity {
 
         public CustomFragmentStateAdapter(@NonNull Fragment fragment) {
             super(fragment);
-            frag = fragment;
         }
 
         @NonNull
         @Override
         public Fragment createFragment(int position) {
+            Log.d("CrimePagerActivity","On position: "+position);
             Crime crime = mCrimes.get(position);
             return CrimeFragment.newInstance(crime.getId());
         }
