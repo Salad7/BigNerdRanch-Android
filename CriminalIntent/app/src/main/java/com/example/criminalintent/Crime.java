@@ -15,6 +15,10 @@ public class Crime {
         mDate = new Date();
     }
 
+    public void setDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
     public Date getDate(){
         return mDate;
     }
