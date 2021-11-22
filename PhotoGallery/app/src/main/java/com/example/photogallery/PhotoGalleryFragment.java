@@ -40,15 +40,11 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     public class FetchItemsTask extends AsyncTask<Void,Void,Void> {
+
+
         @Override
         protected Void doInBackground(Void... voids) {
-            try {
-                String result = new FlickFetchr().getUrlString("https://www.bignerdranch.com");
-                Log.i("PhotoGalleryFragment", "Fetched contents of URL: "+result);
-            }
-            catch (IOException e){
-                Log.d("PhotoGalleryFragment","Failed to fetch URL: ", e);
-            }
+                new FlickFetchr().fetchItems();
             return null;
         }
     }
