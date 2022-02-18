@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         rolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int randomVal = ThreadLocalRandom.current().nextInt(1, mudaes.size() + 1);
+                int randomVal = ThreadLocalRandom.current().nextInt(1, mudaes.size());
 //                Toast.makeText(getApplicationContext(),"Poop "+randomVal,Toast.LENGTH_LONG).show();;
                 roll_name.setText(mudaes.get(randomVal).name);
-                roll_rank.setText(mudaes.get(randomVal).rank);
+                roll_rank.setText(mudaes.get(randomVal).rank+"");
 
             }
         });
