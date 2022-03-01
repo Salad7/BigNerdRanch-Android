@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 roll_name.setText(mudaes.get(randomVal).name);
                 roll_rank.setText(mudaes.get(randomVal).rank+"");
 
+
             }
         });
 
