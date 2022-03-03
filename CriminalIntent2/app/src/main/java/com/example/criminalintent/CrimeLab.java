@@ -9,7 +9,7 @@ import java.util.UUID;
 public class CrimeLab {
 
     private static CrimeLab sCrimeLab;
-    private List<Crime> mCrimes;
+    private ArrayList<Crime> mCrimes;
 
 
     public static CrimeLab get(Context context){
@@ -36,6 +36,10 @@ public class CrimeLab {
             }
         }
         return null;
+    }
+
+    public ArrayList<Crime> getCrimes(){
+        return mCrimes;
     }
 
 
