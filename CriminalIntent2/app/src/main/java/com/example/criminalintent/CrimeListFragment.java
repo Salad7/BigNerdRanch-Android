@@ -22,6 +22,13 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,8 +43,13 @@ public class CrimeListFragment extends Fragment {
     private void updateUI(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         ArrayList<Crime> crimes = crimeLab.getCrimes();
-        mAdapter = new CrimeAdapter(crimes);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        if(mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        }
+        else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -45,6 +57,7 @@ public class CrimeListFragment extends Fragment {
         TextView mTitleTextView;
         TextView mDateTextView;
         CheckBox mSolvedCheckBox;
+        Crime crime;
 
         public CrimeHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,7 +75,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(getActivity(), CrimeActivity.class);
+            Intent i = CrimeActivity.newIntent(getActivity(),crime.getmId());
             startActivity(i);
         }
     }
@@ -86,6 +99,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
             Crime crime = mCrimes.get(position);
+            holder.crime = crime;
             holder.bindCrime(crime);
 
         }
