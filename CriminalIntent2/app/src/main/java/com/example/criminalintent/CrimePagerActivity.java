@@ -47,6 +47,8 @@ public class CrimePagerActivity extends FragmentActivity {
     }
     }
 
+    //test
+
     public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
