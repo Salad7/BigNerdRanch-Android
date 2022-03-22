@@ -2,6 +2,7 @@ package com.example.criminalintent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -76,6 +77,7 @@ public class CrimeListFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
             mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
+            crime = new Crime();
         }
 
         public void bindCrime(Crime crime){
@@ -110,7 +112,10 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
             Crime crime = mCrimes.get(position);
-            holder.crime = crime;
+            holder.crime.setDate(crime.getDate());
+            holder.crime.setSolved(crime.getSolved());
+            holder.crime.setmTitle(crime.getmTitle());
+            holder.crime.setmId(crime.getmId());
             holder.bindCrime(crime);
 
         }
@@ -131,6 +136,7 @@ public class CrimeListFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_item_new_crime:
+                Log.d("CrimeListFragment","New Crime creation started");
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
                 Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getmId());

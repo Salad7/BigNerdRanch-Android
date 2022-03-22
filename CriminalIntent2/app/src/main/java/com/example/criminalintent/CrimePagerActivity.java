@@ -3,6 +3,7 @@ package com.example.criminalintent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,14 +33,19 @@ public class CrimePagerActivity extends AppCompatActivity {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
+                Log.d("CrimePagerActivity","createFragment called in CrimePagerAct.");
                 return CrimeFragment.newInstance(mCrimes.get(position).getmId());
             }
 
+    
+
             @Override
             public int getItemCount() {
+                Log.d("CrimePagerActivity","getCrimes size: "+mCrimes.size());
                 return mCrimes.size();
             }
         });
+
     for (int i = 0 ; i < mCrimes.size(); i++){
         if (mCrimes.get(i).getmId().equals(crimeId)){
             viewPager2.setCurrentItem(i);

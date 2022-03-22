@@ -19,7 +19,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragment);
         fragmentManager = getSupportFragmentManager();
         fragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        CrimeFragment crimeFragment = new CrimeFragment();
+        CrimeListFragment crimeFragment = new CrimeListFragment();
         Bundle b = new Bundle();
 //        b.putSerializable(CrimePagerActivity.EXTRA_CRIME_ID,1);
 //        crimeFragment.setArguments(b);

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,9 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private static final String DIALOG_DATE = "DialogDate";
-
     private static final String ARG_CRIME_ID = "crime_id";
+    public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
+
     private static final int REQUEST_DATE = 0;
 
     @Override
@@ -65,11 +67,16 @@ public class CrimeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime,container,false);
         mTitleField = v.findViewById(R.id.crime_title);
-//        mCrime = new Crime();
+        mCrime = new Crime();
+        if(getActivity().getIntent().hasExtra(EXTRA_CRIME_ID)){
+            UUID crimeID = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+            mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+        }
+        else{
+            Log.d("CrimeFragment","There is no Extra_Crime_ID passed from CPA");
+        }
         mDateButton = v.findViewById(R.id.crime_date);
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
-
-
         updateDate();
     //        mDateButton.setEnabled(false);
         mDateButton.setOnClickListener(new View.OnClickListener() {
