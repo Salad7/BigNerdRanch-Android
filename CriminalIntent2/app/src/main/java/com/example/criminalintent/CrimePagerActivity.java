@@ -37,7 +37,7 @@ public class CrimePagerActivity extends AppCompatActivity {
                 return CrimeFragment.newInstance(mCrimes.get(position).getmId());
             }
 
-    
+
 
             @Override
             public int getItemCount() {

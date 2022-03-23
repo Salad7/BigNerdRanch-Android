@@ -37,7 +37,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         //BOOP
     }
 
@@ -147,7 +147,7 @@ public class CrimeListFragment extends Fragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
+        }x
     }
 
     private void updateSubtitle(){

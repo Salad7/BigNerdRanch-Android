@@ -15,4 +15,13 @@
         android:id="@+id/menu_item_show_subtitle"
         android:title="@string/show_subtitle">
     </item>
+    <item
+        android:id="@+id/menu_item_hide_subtitle"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/hide_subtitle">
+    </item>
+    <item
+        android:id="@+id/menu_item_subtitle_format"
+        android:title="@string/subtitle_format">
+    </item>
 </menu>
