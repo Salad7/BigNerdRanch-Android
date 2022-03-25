@@ -147,7 +147,7 @@ public class CrimeListFragment extends Fragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }x
+        }
     }
 
     private void updateSubtitle(){
