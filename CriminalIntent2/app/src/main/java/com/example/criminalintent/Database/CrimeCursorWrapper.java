@@ -5,6 +5,9 @@ import android.database.CursorWrapper;
 
 import com.example.criminalintent.Crime;
 
+import java.util.Date;
+import java.util.UUID;
+
 public class CrimeCursorWrapper extends CursorWrapper {
 
     public CrimeCursorWrapper(Cursor cursor){
@@ -17,6 +20,11 @@ public class CrimeCursorWrapper extends CursorWrapper {
         long date = getLong(getColumnIndex(CrimeDbSchema.DATE));
         int isSolved = getInt(getColumnIndex(CrimeDbSchema.SOLVED));
 
-     return null;
+        Crime crime = new Crime(UUID.fromString(uuidString));
+        crime.setmTitle(title);
+        crime.setDate(new Date(date));
+        crime.setSolved(isSolved != 0);
+
+     return crime;
     }
 }
