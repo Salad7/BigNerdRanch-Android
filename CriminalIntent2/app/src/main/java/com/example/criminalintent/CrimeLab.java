@@ -1,9 +1,12 @@
 package com.example.criminalintent;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.criminalintent.Database.CrimeBaseHelper;
+import com.example.criminalintent.Database.CrimeDbSchema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +26,32 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
-    public void addCrime(Crime c){
-        mCrimes.add(c);
+    public void addCrime(Crime c)
+    {
+        ContentValues values = getContentValues(c);
+        mDatabase.insert(CrimeDbSchema.CrimeTable.name,null,values);
     }
 
+    private Cursor queryCrimes(String whereClause, String[] whereArgs){
+        Cursor cursor = mDatabase.query(
+                CrimeDbSchema.CrimeTable.name,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        )
+    }
+
+    public void updateCrime(Crime crime) {
+        String uuidString = crime.getmId().toString();
+        ContentValues values = getContentValues(crime);
+        mDatabase.update(CrimeDbSchema.CrimeTable.name, values,
+                CrimeDbSchema.UUID + " = ? ",
+                new String[]{uuidString});
+
+    }
     private CrimeLab(Context context){
         this.context  = context;
         mDatabase = new CrimeBaseHelper(context).getWritableDatabase();
@@ -37,6 +62,15 @@ public class CrimeLab {
 //            crime.setSolved(i % 2 == 0);
 //            mCrimes.add(crime);
 //        }
+    }
+
+    private static ContentValues getContentValues(Crime crime){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CrimeDbSchema.UUID, crime.getmId().toString());
+        contentValues.put(CrimeDbSchema.TITLE, crime.getmTitle().toString());
+        contentValues.put(CrimeDbSchema.DATE, crime.getDate().getTime());
+        contentValues.put(CrimeDbSchema.SOLVED, crime.getSolved() ? 1 : 0);
+        return contentValues;
     }
 
     public Crime getCrime(UUID id){
