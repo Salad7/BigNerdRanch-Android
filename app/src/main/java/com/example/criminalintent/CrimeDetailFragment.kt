@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
@@ -15,11 +16,14 @@ class CrimeDetailFragment : Fragment() {
     private lateinit var crime :Crime
     private lateinit var crimeTitle :EditText
     private lateinit var crimeCheckBox :CheckBox
+    private lateinit var crimeDateButton :Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var v = inflater.inflate(R.layout.fragment_crime,container, false)
         crime = Crime(UUID.randomUUID(),"Text",Date(),false)
         crimeTitle = v.findViewById(R.id.title_et)
         crimeCheckBox = v.findViewById(R.id.checkBox)
+        crimeDateButton = v.findViewById(R.id.crime_date)
+
         crimeTitle.addTextChangedListener(object: TextWatcher{
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 crime.title = p0.toString()
@@ -34,10 +38,13 @@ class CrimeDetailFragment : Fragment() {
             }
         })
         crimeCheckBox.isChecked = crime.isSolvedd()
+        crimeDateButton.setText(crime.getTDate().toString())
         crimeCheckBox.setOnCheckedChangeListener { _, isChecked ->
             crime.setSolved(!crime.isSolvedd())
         }
 
         return v
     }
+
+
 }
