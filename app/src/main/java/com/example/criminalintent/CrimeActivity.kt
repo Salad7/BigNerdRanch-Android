@@ -11,7 +11,7 @@ class CrimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         fragManager = supportFragmentManager
-        fragManager.beginTransaction().add(R.id.fragment_container,CrimeFragment()).commit()
+        fragManager.beginTransaction().add(R.id.fragment_container,CrimeDetailFragment()).commit()
 
 
     }
